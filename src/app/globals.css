@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+  --color-peach: #FFB38A;
+  --color-cocoa: #4A2C2A;
+  --color-cream: #FFF6EC;
+  --color-paper: #FFFCF7;
+  --color-peach-deep: #F28C5B;
+  --color-peach-soft: #FFD9C2;
+  --color-mint: #BFE8D4;
+  --color-mint-deep: #3F9C7C;
+  --color-butter: #FFE8A3;
+  --color-blush: #FFC8D6;
+  --color-berry: #D6455D;
+  --color-cocoa-70: #7A5A56;
+  --color-border-warm: #EAD9C8;
+
+  /* Semantic Colors */
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-cocoa);
+  --color-primary: var(--color-peach);
+  --color-primary-foreground: var(--color-cocoa);
+
+  /* Fonts */
+  --font-heading: var(--font-fredoka), system-ui, sans-serif;
+  --font-body: var(--font-nunito), system-ui, sans-serif;
+  --font-accent: var(--font-caveat), cursive;
+
+  /* Shape and Style */
+  --radius-sm: 16px;
+  --radius-md: 24px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --shadow-sticker: 0 6px 16px rgba(74, 44, 42, 0.15);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Base styles */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--color-cream);
+    --foreground: var(--color-cocoa);
+  }
+  
+  .dark {
+    --background: var(--color-cocoa);
+    --foreground: var(--color-cream);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-cocoa);
+  font-family: var(--font-body);
+  /* Subtle paper texture overlay */
+  background-image: url('/paper-texture.png'); /* We will add this asset later */
+  background-blend-mode: multiply;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .sticker-outline {
+    filter: drop-shadow(0 6px 16px rgba(74, 44, 42, 0.15));
+    border: 4px solid white;
+  }
+  
+  /* Custom Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
 }
